@@ -144,7 +144,7 @@ public class Board extends JPanel implements KeyListener{
 		}
 		
 		
-		//draw board
+		//draw things to board
 		g.setColor(Color.white);
 		for(int row = 0; row < BOARD_HEIGHT;row++)
 		{
@@ -173,8 +173,8 @@ public class Board extends JPanel implements KeyListener{
 		{
 		
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Arial Black", Font.BOLD, 25));
-		g.drawString("GAMER OVER", 325, 70);
+		g.setFont(new Font("Arial Black", Font.BOLD, 30));
+		g.drawString("GAMER OVER", 50, 100);
 		
 		}
 		//Game on status
