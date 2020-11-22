@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class Display {
-	public static final int width = 500, height = 637;
+	public static final int width = 600, height = 637;
 	private JFrame window;
 	private Board board;
 	

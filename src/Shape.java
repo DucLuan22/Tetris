@@ -9,9 +9,10 @@ public class Shape {
 	
 	private int x = 4;
 	private int y = 0;
-	private int normal = 600;
-	private int fast = 50;
-	private int delayTimeForBlockSpeed = normal;
+	private double normal = 600;
+	private double fast = 50;
+	private double instance;
+	private double delayTimeForBlockSpeed = normal;
 	private long startTime;
 	
 	private int sideWayMove = 0;
@@ -238,6 +239,9 @@ public class Shape {
 	public void speedDown()
 	{
 		delayTimeForBlockSpeed = normal;
+	}
+	public void instancePlaced() {
+		delayTimeForBlockSpeed = instance;
 	}
 	public void moveRight() {
 		sideWayMove++;

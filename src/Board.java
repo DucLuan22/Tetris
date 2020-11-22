@@ -154,20 +154,44 @@ public class Board extends JPanel implements KeyListener{
 		{
 			g.drawLine(col*BLOCK_SIZE, 0, col* BLOCK_SIZE,BOARD_HEIGHT*BLOCK_SIZE);
 		}
+		//Score board;
+		g.setColor(Color.WHITE);
+		g.drawRect(320, 0, 230 , 110);
 		
+		//Score
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 25));
+		g.drawString("SCORE: ", 325, 30);
+		
+		//Status
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 25));
+		g.drawString("STATUS: ", 325, 70);
+		
+		//Game over status
 		if(state == STATE_GAME_OVER)
 		{
-			
+		
 		g.setColor(Color.WHITE);
-		g.drawString("GAMER OVER", 325, 100);
+		g.setFont(new Font("Arial Black", Font.BOLD, 25));
+		g.drawString("GAMER OVER", 325, 70);
 		
 		}
+		//Game on status
 		
+		if(state == STATE_GAME_PLAY)
+		{
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Arial Black", Font.BOLD, 25));
+			g.drawString("ON", 450, 70);
+		}
+		
+		//Pause status
 		if(state == STATE_GAME_PAUSE)
 		{
-			
 		g.setColor(Color.WHITE);
-		g.drawString("PAUSE", 325, 100);
+		g.setFont(new Font("Arial Black", Font.BOLD, 25));
+		g.drawString("PAUSE", 435, 70);
 		
 		}
 	}
