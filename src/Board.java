@@ -18,12 +18,13 @@ public class Board extends JPanel implements KeyListener{
 	public static int STATE_GAME_PLAY = 0;
 	public static int STATE_GAME_OVER = 2;
 	public static int STATE_GAME_PAUSE = 1;
+	private static int score = 0;
 	
 	private int state = STATE_GAME_PLAY;
 	
+	
 	private static final int FPS = 60;
 	private static int delay = FPS/1000;
-	
 	private Timer looper;
 	private Color[][] board = new Color[BOARD_HEIGHT][BOARD_WIDTH];
 	
@@ -163,6 +164,12 @@ public class Board extends JPanel implements KeyListener{
 		g.setFont(new Font("Arial", Font.PLAIN, 25));
 		g.drawString("SCORE: ", 325, 30);
 		
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.BOLD, 24));
+		g.drawString(ToString(), 423, 30);
+		
+		
+		
 		//Status
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.PLAIN, 25));
@@ -181,6 +188,7 @@ public class Board extends JPanel implements KeyListener{
 		
 		if(state == STATE_GAME_PLAY)
 		{
+			
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Arial Black", Font.BOLD, 25));
 			g.drawString("ON", 450, 70);
@@ -194,20 +202,28 @@ public class Board extends JPanel implements KeyListener{
 		g.drawString("PAUSE", 435, 70);
 		
 		}
+		
 	}
 	
 	public Color[][] getBoard(){
 		return board;
+		
+	}
+	
+	public int getScore() {
+		return score;
+	}
+	
+	public void addScore()
+	{
+		score+=100;
 	}
 //Controls
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_DOWN)
-		{
-			chooseShape.speedUp();
-		}
-		else if(e.getKeyCode() == KeyEvent.VK_RIGHT)
+		
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT)
 		{
 			chooseShape.moveRight();
 		}
@@ -215,12 +231,16 @@ public class Board extends JPanel implements KeyListener{
 		{
 			chooseShape.moveLeft();
 		}
-		else if(e.getKeyCode() == KeyEvent.VK_W)
+		else if(e.getKeyCode() == KeyEvent.VK_UP)
 		{
 			chooseShape.rotateShape();
 		}
+		else if(e.getKeyCode() == KeyEvent.VK_DOWN)
+		{
+			chooseShape.speedUp();
+		}
 		
-		if(state == STATE_GAME_OVER)
+		if(state == STATE_GAME_OVER || state == STATE_GAME_PLAY)
 		{
 			if(e.getKeyCode() == KeyEvent.VK_R)
 			{
@@ -229,6 +249,7 @@ public class Board extends JPanel implements KeyListener{
 					for( int col = 0; col < board[row].length; col++)
 					{
 						board[row][col] = null;
+						score = 0;
 					}
 				}
 				setChooseShape();
@@ -251,10 +272,14 @@ public class Board extends JPanel implements KeyListener{
 			} 	
 	}
 	
-	
 	@Override
 	public void keyReleased(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_DOWN)
+			{
+				
+				chooseShape.speedDown();	
+			}
+			if(chooseShape.getFast() == 60)
 			{
 				chooseShape.speedDown();
 			}
@@ -264,6 +289,8 @@ public class Board extends JPanel implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
+	public String ToString() {
+		return score + "";
+	}
 }
 

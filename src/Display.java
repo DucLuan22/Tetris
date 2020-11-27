@@ -4,7 +4,7 @@ public class Display {
 	public static final int width = 600, height = 637;
 	private JFrame window;
 	private Board board;
-	
+	private Sound bgm;
 	
 	public static int getWidth() {
 		return width;
@@ -21,11 +21,10 @@ public class Display {
 		window.setResizable(false);
 		window.setLocationRelativeTo(null);
 		board = new Board();
+		bgm = new Sound();
+		bgm.playMusic();
 		window.add(board);
 		window.addKeyListener(board);
-		window.setVisible(true);
-		
-		
-		
+		window.setVisible(true);		
 	}
 }

@@ -9,12 +9,12 @@ public class Shape {
 	
 	private int x = 4;
 	private int y = 0;
-	private double normal = 600;
-	private double fast = 50;
+	private double normal = 550;
+	private double fast = 60;
 	private double instance;
 	private double delayTimeForBlockSpeed = normal;
 	private long startTime;
-	
+	private static int score;
 	private int sideWayMove = 0;
 	private boolean collision = false;
 	
@@ -29,7 +29,10 @@ public class Shape {
 		this.color = color;
 	}
 	
-	
+	public double getFast()
+	{
+		return fast;
+	}
 	public int getX() {
 		return x;
 	}
@@ -130,7 +133,7 @@ public class Shape {
 	
 	//check bottom line collision
 	private void checkLine() {
-		
+			
 		int bottomLine = board.getBoard().length - 1;
 		
 		for(int topLine = board.getBoard().length - 1; topLine > 0; topLine-- )
@@ -142,22 +145,29 @@ public class Shape {
 				if(board.getBoard()[topLine][col] != null)
 				{
 					count++;
-
+					
 				}
 	
 				board.getBoard()[bottomLine][col] = board.getBoard()[topLine][col];
-	
 			}
 			
 			if(count < board.getBoard()[0].length)
 			
 			{
+				
 				bottomLine--;
 				
 			}
+			
+			if(count >= board.getBoard()[0].length)
+			{
+				board.addScore();
+				System.out.println(board.getScore());
+			}
+			
 		}
+		
 	}
-	
 	public void rotateShape() {
 		
 		int[][] rotatedShape = transposeMatrix(coords);
