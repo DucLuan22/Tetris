@@ -3,7 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
@@ -14,19 +20,24 @@ public class Board extends JPanel implements KeyListener{
 	public static final int BOARD_WIDTH =10; 
 	public static final int BOARD_HEIGHT =20; 
 	public static final int BLOCK_SIZE = 30;
+	public static ReadHighScore readscore;
 	
 	public static int STATE_GAME_PLAY = 0;
 	public static int STATE_GAME_OVER = 2;
 	public static int STATE_GAME_PAUSE = 1;
-	private static int score = 0;
-	
-	private int state = STATE_GAME_PLAY;
+	private static int score ;
+	private static int numbershape = 1;
+	private static int state = STATE_GAME_PLAY;
 	
 	
 	private static final int FPS = 60;
 	private static int delay = FPS/1000;
+	
 	private Timer looper;
 	private Color[][] board = new Color[BOARD_HEIGHT][BOARD_WIDTH];
+	private File highestScore = new File("highscore.txt");
+	private PrintWriter writer;
+	private Scanner scanner ;
 	
 	private Random random;
 	
@@ -98,6 +109,7 @@ public class Board extends JPanel implements KeyListener{
 			
 			chooseShape.update();
 		}
+		
 	}
 	
 	public void setChooseShape() {
@@ -116,7 +128,10 @@ public class Board extends JPanel implements KeyListener{
 				{
 					if(board[row + chooseShape.getY()][col + chooseShape.getX()] != null)
 					{
+						highScore();
 						state = STATE_GAME_OVER;
+						
+						
 					}
 				}
 			}
@@ -157,7 +172,7 @@ public class Board extends JPanel implements KeyListener{
 		}
 		//Score board;
 		g.setColor(Color.WHITE);
-		g.drawRect(320, 0, 230 , 110);
+		g.drawRect(320, 0, 250 , 150);
 		
 		//Score
 		g.setColor(Color.WHITE);
@@ -166,9 +181,13 @@ public class Board extends JPanel implements KeyListener{
 		
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 24));
-		g.drawString(ToString(), 423, 30);
+		g.drawString(ToString(), 425, 30);
 		
-		
+		//Highscore Board
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.BOLD, 24));
+		g.drawString("HIGHSCORE: ", 325, 110);
+		g.drawString(Integer.toString(ReadHighScore.getScore()), 485, 110);
 		
 		//Status
 		g.setColor(Color.WHITE);
@@ -184,6 +203,8 @@ public class Board extends JPanel implements KeyListener{
 		g.drawString("GAMER OVER", 50, 100);
 		
 		}
+		
+		
 		//Game on status
 		
 		if(state == STATE_GAME_PLAY)
@@ -191,7 +212,7 @@ public class Board extends JPanel implements KeyListener{
 			
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Arial Black", Font.BOLD, 25));
-			g.drawString("ON", 450, 70);
+			g.drawString("ON", 440, 70);
 		}
 		
 		//Pause status
@@ -202,7 +223,38 @@ public class Board extends JPanel implements KeyListener{
 		g.drawString("PAUSE", 435, 70);
 		
 		}
+			
+	}
+	
+	public void highScore() {
+		if(state == STATE_GAME_OVER || state == STATE_GAME_PLAY)
+		{
+			try {
+				scanner = new Scanner(highestScore);
+				
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			if(scanner.nextInt() < score)
+			{
+				try {
+					writer = new PrintWriter(highestScore);
+					writer.print(score);
+					writer.close();
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			scanner.close();
+
+			
+		}
 		
+			
 	}
 	
 	public Color[][] getBoard(){
@@ -214,10 +266,24 @@ public class Board extends JPanel implements KeyListener{
 		return score;
 	}
 	
+	public int getNumberShape() {
+		return numbershape;
+	}
+	
+	public void addScoreShape() {
+		score = score + numbershape;
+	}
+	
 	public void addScore()
 	{
-		score+=100;
+		score = score + 100;
+		
 	}
+	
+	public int getState() {
+		return state;
+	}
+	
 //Controls
 	
 	@Override

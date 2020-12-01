@@ -6,6 +6,7 @@ public class Shape {
 	public static final int BOARD_WIDTH =10; 
 	public static final int BOARD_HEIGHT =20; 
 	public static final int BLOCK_SIZE = 30;
+	public ReadHighScore readscore;
 	
 	private int x = 4;
 	private int y = 0;
@@ -15,6 +16,7 @@ public class Shape {
 	private double delayTimeForBlockSpeed = normal;
 	private long startTime;
 	private static int score;
+	private static int numbershape=0;
 	private int sideWayMove = 0;
 	private boolean collision = false;
 	
@@ -162,10 +164,12 @@ public class Shape {
 			if(count >= board.getBoard()[0].length)
 			{
 				board.addScore();
-				System.out.println(board.getScore());
+				
 			}
 			
 		}
+		
+		board.addScoreShape();
 		
 	}
 	public void rotateShape() {
