@@ -1,7 +1,6 @@
 import static javax.sound.sampled.Clip.LOOP_CONTINUOUSLY;
 import java.io.File;
 import java.io.IOException;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -23,7 +22,7 @@ public class Sound {
 				Clip clip = AudioSystem.getClip();
 				clip.open(audioinput);
 				FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-				gainControl.setValue(-20.0f);
+				gainControl.setValue(-30.0f);
 				clip.start();
 				clip.loop(LOOP_CONTINUOUSLY);
 				
@@ -38,25 +37,7 @@ public class Sound {
 		}
 	
 }
-	public void stopMusic() {
-		File musicPath = new File("tetris.wav");
-		try {
-			AudioInputStream audioinput= AudioSystem.getAudioInputStream(musicPath);
-			Clip clip = AudioSystem.getClip();
-			clip.stop();
-		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-	}
+	
 	public void playSoundEffect(String soundfile)
 	{
 		try 

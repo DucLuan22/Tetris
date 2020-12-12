@@ -99,20 +99,16 @@ public class Board extends JPanel implements KeyListener{
 				repaint();
 			}
 	});
-		
 		looper.start();
 	
 }	
-	
 	public void update() {
 		if(state == STATE_GAME_PLAY) {
 			
 			chooseShape.update();
+			checkSpeedUp();
 		}
-		
 	}
-	
-	
 	
 	public void setChooseShape() {
 		chooseShape = shapes[random.nextInt(shapes.length)];
@@ -131,9 +127,7 @@ public class Board extends JPanel implements KeyListener{
 					if(board[row + chooseShape.getY()][col + chooseShape.getX()] != null)
 					{
 						highScore();
-						state = STATE_GAME_OVER;
-						
-						
+						state = STATE_GAME_OVER;			
 					}
 				}
 			}
@@ -141,6 +135,7 @@ public class Board extends JPanel implements KeyListener{
 		if(state == STATE_GAME_OVER)
 		{
 			addsoundgameover();
+			chooseShape.setSpeed(550);
 		}
 	}
 	@Override
@@ -150,9 +145,8 @@ public class Board extends JPanel implements KeyListener{
 		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
 		chooseShape.renderShape(g);
-		
-		
 		for(int row = 0; row < board.length; row++)
 		{
 			for( int col = 0; col < board[row].length; col++)
@@ -165,9 +159,9 @@ public class Board extends JPanel implements KeyListener{
 			}
 		}
 		
-		
 		//draw things to board
 		g.setColor(Color.white);
+		
 		for(int row = 0; row < BOARD_HEIGHT;row++)
 		{
 			g.drawLine(0, row*BLOCK_SIZE, BLOCK_SIZE*BOARD_WIDTH, row*BLOCK_SIZE);
@@ -210,18 +204,14 @@ public class Board extends JPanel implements KeyListener{
 		
 		}
 		
-		
 		//Game on status
-		
 		if(state == STATE_GAME_PLAY)
 		{
 			
 			g.setColor(Color.WHITE);
 			g.setFont(new Font("Arial Black", Font.BOLD, 25));
 			g.drawString("ON", 440, 70);
-			
 		}
-		
 		//Pause status
 		if(state == STATE_GAME_PAUSE)
 		{
@@ -257,11 +247,8 @@ public class Board extends JPanel implements KeyListener{
 				
 			}
 			scanner.close();
-
-			
 		}
-		
-			
+				
 	}
 	
 	public Color[][] getBoard(){
@@ -291,6 +278,7 @@ public class Board extends JPanel implements KeyListener{
 	public int getState() {
 		return state;
 	}
+	//Sound effects
 	public void addsoundmove() {
 		sound.playSoundEffect("move.wav");
 	}
@@ -314,8 +302,8 @@ public class Board extends JPanel implements KeyListener{
 	{
 		sound.playSoundEffect("rotate.wav");
 	}
-//Controls
-	
+
+	//Controls
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
@@ -349,12 +337,14 @@ public class Board extends JPanel implements KeyListener{
 					{
 						board[row][col] = null;
 						score = 0;
+						chooseShape.setSpeed(550);
 					}
 				}
 				setChooseShape();
 				state = STATE_GAME_PLAY;
 			}
 		}
+		
 		
 		if(e.getKeyCode() == KeyEvent.VK_P)
 		{
@@ -372,7 +362,6 @@ public class Board extends JPanel implements KeyListener{
 		
 			} 	
 	}
-	
 	@Override
 	public void keyReleased(KeyEvent e) {
 			if(e.getKeyCode() == KeyEvent.VK_DOWN)
@@ -392,6 +381,29 @@ public class Board extends JPanel implements KeyListener{
 	}
 	public String ToString() {
 		return score + "";
+	}
+	public void checkSpeedUp() {
+		
+		if(score > 200 )
+		{
+			chooseShape.setSpeed(410);
+		}
+		if(score > 400)
+		{
+			chooseShape.setSpeed(310);
+		}
+		if(score > 800)
+		{
+			chooseShape.setSpeed(200);
+		}
+		if(score > 1000)
+		{
+			chooseShape.setSpeed(120);
+		}
+		if(score > 1200)
+		{
+			chooseShape.setSpeed(90);
+		}
 	}
 }
 

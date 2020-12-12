@@ -10,16 +10,13 @@ public class Shape {
 	
 	private int x = 4;
 	private int y = 0;
-	private double normal = 550;
+	private static double normal = 550;
 	private double fast = 60;
 	private double instance;
 	private double delayTimeForBlockSpeed = normal;
 	private long startTime;
-	private static int score;
-	private static int numbershape=0;
 	private int sideWayMove = 0;
 	private boolean collision = false;
-	
 	private int[][] coords;
 	private Board board;
 	private Color color;
@@ -78,7 +75,6 @@ public class Shape {
 			
 			return;
 		}
-		
 		//horizontal movement check collision
 		boolean xMove = true;
 		if(x + sideWayMove + coords[0].length <= BOARD_WIDTH && x + sideWayMove >= 0) {
@@ -246,6 +242,15 @@ public class Shape {
 		}
 	}
 	
+	public double getSpeed()
+	{
+		return normal;
+	}
+	
+	public void setSpeed(double n)
+	{
+		this.normal = n;
+	}
 	public void speedUp()
 	{
 		delayTimeForBlockSpeed = fast;
