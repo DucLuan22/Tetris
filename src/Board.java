@@ -27,7 +27,7 @@ public class Board extends JPanel implements KeyListener{
 	public static int STATE_GAME_PAUSE = 1;
 	private static int score ;
 	private static int numbershape = 1;
-	private static int state = STATE_GAME_PLAY;
+	private int state = STATE_GAME_PLAY;
 	private Sound sound;
 	
 	private static final int FPS = 60;
@@ -130,7 +130,6 @@ public class Board extends JPanel implements KeyListener{
 				{
 					if(board[row + chooseShape.getY()][col + chooseShape.getX()] != null)
 					{
-						addsoundgameover();
 						highScore();
 						state = STATE_GAME_OVER;
 						
@@ -138,6 +137,10 @@ public class Board extends JPanel implements KeyListener{
 					}
 				}
 			}
+		}
+		if(state == STATE_GAME_OVER)
+		{
+			addsoundgameover();
 		}
 	}
 	@Override
