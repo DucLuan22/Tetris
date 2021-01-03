@@ -223,7 +223,7 @@ public class Board extends JPanel implements KeyListener{
 		{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial Black", Font.BOLD, 25));
-		g.drawString("PAUSE", 435, 70);
+		g.drawString("PAUSE", 500, 70);
 		
 		}
 		
@@ -236,6 +236,18 @@ public class Board extends JPanel implements KeyListener{
 			g.drawString("NEW HIGHSCORE !!!",80,120);
 			
 		}
+		
+		
+			
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Arial Black", Font.PLAIN, 18));
+			g.drawString("Controls: ", 370, 200);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("Arial Black", Font.PLAIN, 15));
+			g.drawString("Arrow Keys ← ↑ → ↓ to move ", 370, 230);
+			g.drawString("R to restart the game ", 370, 260);
+			g.drawString("P to pause the game ", 370, 290);
+		
 			
 	}
 	
