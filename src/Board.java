@@ -438,10 +438,7 @@ public class Board extends JPanel implements KeyListener{
 			chooseShape.setSpeed(90);
 		}
 	}
-	  public void startGame()
-	    {
-	        System.out.println("completed");
-	    }
+	 
 
 }
 
