@@ -3,16 +3,15 @@ import java.awt.Graphics;
 
 public class Shape {
 	
-	public static final int BOARD_WIDTH =10; 
+	public static final int BOARD_WIDTH =12; 
 	public static final int BOARD_HEIGHT =20; 
 	public static final int BLOCK_SIZE = 30;
 	public ReadHighScore readscore;
 	
-	private int x = 4;
+	private int x = 5;
 	private int y = 0;
 	private static double normal = 550;
 	private double fast = 60;
-	private double instance;
 	private double delayTimeForBlockSpeed = normal;
 	private long startTime;
 	private int sideWayMove = 0;
@@ -57,7 +56,8 @@ public class Shape {
 		collision = false;
 	}
 	public void update() {
-//draw color for board		
+
+		//draw color for board		
 		if(collision)
 		{
 			for(int row = 0; row < coords.length;row++)
@@ -71,6 +71,7 @@ public class Shape {
 				}
 			}
 			checkLine();
+			board.addScoreShape();
 			board.setChooseShape();
 			
 			return;
@@ -113,6 +114,7 @@ public class Shape {
 								
 								collision = true;
 								
+								
 							}
 						}
 					}
@@ -124,7 +126,9 @@ public class Shape {
 			else
 			{
 				collision = true;
+					
 			}
+			
 			startTime = System.currentTimeMillis();
 		}
 	}
@@ -163,15 +167,15 @@ public class Shape {
 				
 			}
 			
-		}
+		}	
 		
-		board.addScoreShape();
 		
 	}
 	public void rotateShape() {
 		
 		int[][] rotatedShape = transposeMatrix(coords);
 		reverseRows(rotatedShape);
+		
 		//check rotate borders	
 		
 		if((x + rotatedShape[0].length > Board.BOARD_WIDTH) || (y + rotatedShape.length > Board.BOARD_HEIGHT))
@@ -198,7 +202,7 @@ public class Shape {
 		coords = rotatedShape;
 		
 	}
-
+	//hold shape for rotation
 	private int[][] transposeMatrix(int[][] matrix)
 	{
 		int[][] temp = new int[matrix[0].length][matrix.length];
@@ -214,6 +218,7 @@ public class Shape {
 		return temp;
 	}
 	
+	//Reverse the shape
 	private void reverseRows(int[][] matrix) {
 		int middle = matrix.length/2;
 		
@@ -227,6 +232,8 @@ public class Shape {
 			
 		}
 	}
+
+	//Draw shape
 	public void renderShape(Graphics g) {
 		for(int i = 0; i < coords.length;i++)
 		{
@@ -259,9 +266,7 @@ public class Shape {
 	{
 		delayTimeForBlockSpeed = normal;
 	}
-	public void instancePlaced() {
-		delayTimeForBlockSpeed = instance;
-	}
+
 	public void moveRight() {
 		sideWayMove++;
 	}
